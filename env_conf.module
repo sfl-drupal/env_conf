@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Per-environment configuration module,
+ * hooks implementations.
+ */
+
+/**
+ * Implements hook_perm().
+ */
+function env_conf_perm() {
+  return array(
+    'access deploy-configuration feature',
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function env_conf_menu() {
+  return array(
+    'admin/settings/environment-configuration' => array(
+      'title' => 'Per-environment configuration',
+      'description' => 'Page where you can deploy a selected environment configuration.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('env_conf_form'),
+      'access arguments' => array('access deploy-configuration feature'),
+      'file' => 'env_conf.forms.inc',
+    )
+  );
+}
