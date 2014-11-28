@@ -7,11 +7,16 @@
  */
 
 /**
- * Implements hook_perm().
+ * Implements hook_permission().
  */
-function env_conf_perm() {
+function env_conf_permission() {
   return array(
-    'access deploy-configuration feature',
+    'access deploy-configuration feature' => array(
+      'title' => t('Access deploy configuration feature'),
+      'description' => t('Access to admin page where you can deploy a selected environment configuration.'),
+      'restrict access' => TRUE,
+      'warning' => 'Only admins should access this feature.',
+    ),
   );
 }
 
@@ -20,7 +25,7 @@ function env_conf_perm() {
  */
 function env_conf_menu() {
   return array(
-    'admin/settings/environment-configuration' => array(
+    'admin/config/environment-configuration' => array(
       'title' => 'Per-environment configuration',
       'description' => 'Page where you can deploy a selected environment configuration.',
       'page callback' => 'drupal_get_form',
@@ -28,5 +33,46 @@ function env_conf_menu() {
       'access arguments' => array('access deploy-configuration feature'),
       'file' => 'env_conf.forms.inc',
     )
+  );
+}
+
+/**
+ * Implements hook_env_conf_available_env().
+ */
+function env_conf_env_conf_available_env() {
+  return array(
+    'local' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 1,
+    ),
+    'staging' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 2,
+    ),
+    'prod' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 3,
+    ),
   );
 }

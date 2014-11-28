@@ -16,6 +16,10 @@ function env_conf_form() {
 
   // List available environments
   $available_envs = _get_simple_available_environments();
+  if (!$available_envs) {
+    drupal_set_message(t('No environment is defined. You should define one or more by implementing <strong>hook_env_conf_available_env()</strong>.'), 'warning');
+    return $form;
+  }
 
   // Get current environment name (normally in settings.php,
   // but possibly in a Drupal variable,
