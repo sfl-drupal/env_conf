@@ -30,3 +30,44 @@ function env_conf_menu() {
     )
   );
 }
+
+/**
+ * Implements hook_env_conf_available_env().
+ */
+function env_conf_env_conf_available_env() {
+  return array(
+    'local' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 1,
+    ),
+    'staging' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 2,
+    ),
+    'prod' => array(
+      'callbacks' => array(
+        '_demo_env_conf',
+      ),
+      'include_file' => array(
+        'type' => 'inc',
+        'module' => 'env_conf',
+        'name' => 'env_conf.env_conf',
+      ),
+      'weight' => 3,
+    ),
+  );
+}
