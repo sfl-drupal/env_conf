@@ -29,7 +29,7 @@ function env_conf_drush_command() {
         'selected-environment' => 'Environment you want to deploy the configuration.',
       ),
       'examples' => array(
-        'drush deploy-configuration' => 'Execute functions listed in default environment (using $conf[\'environment\'] value).',
+        'drush deploy-configuration' => 'Execute functions listed in default environment, using $conf[\'environment\'] value.',
         'drush d-conf dev' => 'Execute functions listed in dev environment, if exists.',
       ),
     ),
