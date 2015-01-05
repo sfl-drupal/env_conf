@@ -7,11 +7,16 @@ Pour défininr l'environnement courant, il est recommandé de rajouter cette lig
 
     $conf['environment'] = 'environment_name';
 
-Une fois cette variable défini, il suffit d'executer la commande Drush suivante.
+Une fois cette variable définie, il suffit d'exécuter la commande Drush suivante.
 
     drush d-conf
     
-Elle se basera automatiauement sur la variable ci-dessus pour savoir quelle configuration déployer.
+Elle se basera automatiquement sur la variable ci-dessus pour savoir quelle configuration déployer.
+
+Il est possible de forcer la configuration à déployer, en la donnant comme argument à la commande.
+
+    drush d-conf forced_environment
+
 Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf_available_env() en suivant l'exemple ci-dessous.
 
     /**
@@ -19,7 +24,7 @@ Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf
      */
     function mymodulecustom_env_conf_available_env() {
       return array(
-        'environment_name' => array(
+        'first_environment_name' => array(
           'callbacks' => array(
             'first_function',
             'second_function',
@@ -32,6 +37,21 @@ Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf
           ),
           'weight' => 1,
         ),
+        'second_environment_name' => array(
+          'callbacks' => array(
+            'first_function',
+            'third_function',
+            ...
+          ),
+          'include_file' => array(
+            'type' => 'inc',
+            'module' => 'mymodulecustom',
+            'name' => 'mymodulecustom.env_conf',
+          ),
+          'weight' => 2,
+        ),
         ...
       );
     }
+
+Il est possible d'utiliser les mêmes fonctions de callbacks sur plusieurs environnements, ou d'en définir des différentes pour chaque environnement.
