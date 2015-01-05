@@ -1,0 +1,37 @@
+Per-environment configuration module
+====================================
+
+Ce projet est un module Drupal permettant le déploiement automatique d'une certaine configuration, selon l'environnement défini.
+
+Pour défininr l'environnement courant, il est recommandé de rajouter cette ligne dans le fichier settings.php de votre Drupal. Ou mieux, dans un fichier settings.local.php, qui sera inclus dans le fichier settings.php.
+
+    $conf['environment'] = 'environment_name';
+
+Une fois cette variable défini, il suffit d'executer la commande Drush suivante.
+
+    drush d-conf
+    
+Elle se basera automatiauement sur la variable ci-dessus pour savoir quelle configuration déployer.
+Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf_available_env() en suivant l'exemple ci-dessous.
+
+    /**
+     * Implements hook_env_conf_available_env().
+     */
+    function mymodulecustom_env_conf_available_env() {
+      return array(
+        'environment_name' => array(
+          'callbacks' => array(
+            'first_function',
+            'second_function',
+            ...
+          ),
+          'include_file' => array(
+            'type' => 'inc',
+            'module' => 'mymodulecustom',
+            'name' => 'mymodulecustom.env_conf',
+          ),
+          'weight' => 1,
+        ),
+        ...
+      );
+    }
