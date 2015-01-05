@@ -56,4 +56,4 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
 
 Il est possible d'utiliser les mêmes fonctions de callbacks sur plusieurs environnements, ou d'en définir des différentes pour chaque environnement.
 
-Il est également possible d'implémenter le hook_env_conf_available_env_alter() pour modifier les configurrations par défaut.
+Il est également possible d'implémenter le hook_env_conf_available_env_alter() pour modifier les configurations par défaut.
