@@ -10,14 +10,14 @@ Pour défininr l'environnement courant, il est recommandé de rajouter cette lig
 Une fois cette variable définie, il suffit d'exécuter la commande Drush suivante.
 
     drush d-conf
-    
+
 Elle se basera automatiquement sur la variable ci-dessus pour savoir quelle configuration déployer.
 
 Il est possible de forcer la configuration à déployer, en la donnant comme argument à la commande.
 
     drush d-conf forced_environment
 
-Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf_available_env() en suivant l'exemple ci-dessous.
+Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_available_env() en suivant l'exemple ci-dessous.
 
     /**
      * Implements hook_env_conf_available_env().
@@ -55,3 +55,5 @@ Pour customiser la configuration, il suffit d'implémenter le hook hook_env_conf
     }
 
 Il est possible d'utiliser les mêmes fonctions de callbacks sur plusieurs environnements, ou d'en définir des différentes pour chaque environnement.
+
+Il est également possible d'implémenter le hook_env_conf_available_env_alter() pour modifier les configurrations par défaut.
