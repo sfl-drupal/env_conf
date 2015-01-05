@@ -1,3 +1,4 @@
 name = Per-environment configuration
 description = Allow admin to deploy specific configuration per environment, by using a Drush command or an admin page
+package = Deployment
 core = 7.x
