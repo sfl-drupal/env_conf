@@ -46,9 +46,11 @@ function env_conf_env_conf_available_env() {
         '_demo_env_conf',
       ),
       'include_file' => array(
-        'type' => 'inc',
-        'module' => 'env_conf',
-        'name' => 'env_conf.env_conf',
+        array(
+          'type' => 'inc',
+          'module' => 'env_conf',
+          'name' => 'env_conf.env_conf',
+        ),
       ),
       'weight' => 1,
     ),
@@ -57,9 +59,11 @@ function env_conf_env_conf_available_env() {
         '_demo_env_conf',
       ),
       'include_file' => array(
-        'type' => 'inc',
-        'module' => 'env_conf',
-        'name' => 'env_conf.env_conf',
+        array(
+          'type' => 'inc',
+          'module' => 'env_conf',
+          'name' => 'env_conf.env_conf',
+        ),
       ),
       'weight' => 2,
     ),
@@ -68,9 +72,11 @@ function env_conf_env_conf_available_env() {
         '_demo_env_conf',
       ),
       'include_file' => array(
-        'type' => 'inc',
-        'module' => 'env_conf',
-        'name' => 'env_conf.env_conf',
+        array(
+          'type' => 'inc',
+          'module' => 'env_conf',
+          'name' => 'env_conf.env_conf',
+        ),
       ),
       'weight' => 3,
     ),

@@ -7,11 +7,9 @@ Pour défininr l'environnement courant, il est recommandé de rajouter cette lig
 
     $conf['environment'] = 'environment_name';
 
-Une fois cette variable définie, il suffit d'exécuter la commande Drush suivante.
+Une fois cette variable définie, il suffit d'exécuter la commande Drush suivante. Elle se basera automatiquement sur la variable définie par le fichier settings.php.
 
     drush d-conf
-
-Elle se basera automatiquement sur la variable ci-dessus pour savoir quelle configuration déployer.
 
 Il est possible de forcer la configuration à déployer, en la donnant comme argument à la commande.
 
@@ -31,9 +29,11 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
             ...
           ),
           'include_file' => array(
-            'type' => 'inc',
-            'module' => 'mymodulecustom',
-            'name' => 'mymodulecustom.env_conf',
+            array(
+              'type' => 'inc',
+              'module' => 'mymodulecustom',
+              'name' => 'mymodulecustom.env_conf',
+            ),
           ),
           'weight' => 1,
         ),
@@ -44,9 +44,11 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
             ...
           ),
           'include_file' => array(
-            'type' => 'inc',
-            'module' => 'mymodulecustom',
-            'name' => 'mymodulecustom.env_conf',
+            array(
+              'type' => 'inc',
+              'module' => 'mymodulecustom',
+              'name' => 'mymodulecustom.env_conf',
+            ),
           ),
           'weight' => 2,
         ),
@@ -56,4 +58,4 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
 
 Il est possible d'utiliser les mêmes fonctions de callbacks sur plusieurs environnements, ou d'en définir des différentes pour chaque environnement.
 
-Il est également possible d'implémenter le hook_env_conf_available_env_alter() pour modifier les configurations par défaut.
+Il est également possible d'implémenter le hook_env_conf_available_env_alter() pour modifier les environnements par défaut.
