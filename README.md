@@ -17,6 +17,9 @@ Il est possible de forcer la configuration à déployer, en la donnant comme arg
 
     drush d-conf forced_environment
 
+Create new environment(s)
+-------------------------
+
 Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_available_env() en suivant l'exemple ci-dessous.
 
     /**
@@ -31,9 +34,11 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
             ...
           ),
           'include_file' => array(
-            'type' => 'inc',
-            'module' => 'mymodulecustom',
-            'name' => 'mymodulecustom.env_conf',
+            array(
+              'type' => 'inc',
+              'module' => 'mymodulecustom',
+              'name' => 'mymodulecustom.env_conf',
+            ),
           ),
           'weight' => 1,
         ),
@@ -44,9 +49,11 @@ Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_avai
             ...
           ),
           'include_file' => array(
-            'type' => 'inc',
-            'module' => 'mymodulecustom',
-            'name' => 'mymodulecustom.env_conf',
+            array(
+              'type' => 'inc',
+              'module' => 'mymodulecustom',
+              'name' => 'mymodulecustom.env_conf',
+            ),
           ),
           'weight' => 2,
         ),

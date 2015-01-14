@@ -56,17 +56,18 @@ function _deploy_environment_configuration($selected_environment) {
   $available_envs = _get_available_environments();
 
   // Include file to define callback function(s)
-  $file = $available_envs[$selected_environment]['include_file'];
-  if (isset($file['type']) && isset($file['module'])) {
-    if (isset($file['name'])) {
-      module_load_include($file['type'], $file['module'], $file['name']);
+  foreach ($available_envs[$selected_environment]['include_file'] as $file) {
+    if (isset($file['type']) && isset($file['module'])) {
+      if (isset($file['name'])) {
+        module_load_include($file['type'], $file['module'], $file['name']);
+      }
+      else {
+        module_load_include($file['type'], $file['module']);
+      }
     }
     else {
-      module_load_include($file['type'], $file['module']);
+      drupal_set_message(t('Impossible to include file where functions are defined.'), 'warning');
     }
-  }
-  else {
-    drupal_set_message(t('Impossible to include file where functions are defined.'), 'warning');
   }
 
   // Execute each functions or alert
