@@ -54,12 +54,9 @@ function _deploy_environment_configuration($selected_environment) {
 
   // List available environments configurations
   $available_envs = _get_available_environments();
-  dsm($available_envs);
-  dsm($available_envs[$selected_environment]);
 
   // Include file to define callback function(s)
   foreach ($available_envs[$selected_environment]['include_file'] as $file) {
-    // $file = $available_envs[$selected_environment]['include_file'];
     if (isset($file['type']) && isset($file['module'])) {
       if (isset($file['name'])) {
         module_load_include($file['type'], $file['module'], $file['name']);
