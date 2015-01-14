@@ -5,7 +5,7 @@ Ce projet est un module Drupal permettant le déploiement automatique d'une cert
 
 Pour défininr l'environnement courant, il est recommandé de rajouter cette ligne dans le fichier settings.php de votre Drupal. Ou mieux, dans un fichier settings.local.php, qui sera inclus dans le fichier settings.php.
 
-    $conf['environment'] = 'environment_name';
+    $conf['environment'] = 'my_environment';
 
 Une fois cette variable définie, il suffit d'exécuter la commande Drush suivante. Elle se basera automatiquement sur la variable définie par le fichier settings.php.
 
@@ -13,7 +13,10 @@ Une fois cette variable définie, il suffit d'exécuter la commande Drush suivan
 
 Il est possible de forcer la configuration à déployer, en la donnant comme argument à la commande.
 
-    drush d-conf forced_environment
+    drush d-conf my_environment
+
+Create new environment(s)
+-------------------------
 
 Pour customiser la configuration, il suffit d'implémenter le hook_env_conf_available_env() en suivant l'exemple ci-dessous.
 
