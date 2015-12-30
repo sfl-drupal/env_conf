@@ -25,14 +25,28 @@ function env_conf_permission() {
  */
 function env_conf_menu() {
   return array(
-    'admin/config/environment-configuration' => array(
-      'title' => 'Per-environment configuration',
+
+    // Admin form to deploy environment configuration
+    'admin/config/env-conf' => array(
+      'title' => 'Environment deployment',
       'description' => 'Page where you can deploy a selected environment configuration.',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('env_conf_form'),
       'access arguments' => array('access deploy-configuration feature'),
       'file' => 'env_conf.forms.inc',
-    )
+      // 'type' => MENU_DEFAULT_LOCAL_TASK,
+    ),
+
+    // Admin form to define environment if not defined in settings.php file
+    'admin/config/env-conf/settings' => array(
+      'title' => 'Settings',
+      'description' => 'Page where you can define settings for env_conf module.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('env_conf_settings_form'),
+      'access arguments' => array('access deploy-configuration feature'),
+      'file' => 'env_conf.forms.inc',
+      // 'type' => MENU_LOCAL_TASK,
+    ),
   );
 }
 
