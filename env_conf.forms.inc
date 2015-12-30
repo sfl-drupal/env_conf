@@ -10,9 +10,11 @@
  * Allow user to lauch configuration deployment,
  * with default, or manually defined, parameter.
  */
-function env_conf_form() {
+function env_conf_form($form, &$form_state) {
   module_load_include('inc', 'env_conf');
-  $form = array();
+
+  // Env Conf settings URL
+  $env_conf_settings_url = url('admin/config/env-conf/settings', array('query' => array('destination' => 'admin/config/env-conf')));
 
   // List available environments
   $available_envs = _get_simple_available_environments();
@@ -27,10 +29,13 @@ function env_conf_form() {
   // and alert if there is a problem
   $environment = variable_get('environment', NULL);
   if ($environment === NULL) {
-    drupal_set_message(t('No environment configured in <i>settings.php</i>. You should edit it and add <strong>$conf[\'environment\'] = \'env_name\';</strong>.'), 'error');
+    drupal_set_message(t('No environment configured in <i>settings.php</i> or as a Drupal variable.'), 'error');
+    drupal_set_message(t('You should edit <i>settings.php</i> and add <strong>$conf[\'environment\'] = \'env_name\';</strong> (recommended solution), or <a href="@url">init <i>environment</i> Drupal variable</a>.', array('@url' => $env_conf_settings_url)), 'error');
   }
   elseif (!in_array($environment, $available_envs)) {
-    drupal_set_message(t('Environment is defined as <strong>!env</strong> in <i>settings.php</i>, but available environments are <strong>!available_envs</strong>. You should edit <i>settings.php</i> or define <strong>!env</strong> as an available environment by implementing <strong>hook_env_conf_available_env()</strong>.', array('!env' => $environment, '!last_deployed_conf' => $last_deployed_conf, '!available_envs' => implode(', ', $available_envs))), 'warning');
+    drupal_set_message(t('Environment is defined as <strong>!env</strong> in <i>settings.php</i>, but available environments are <strong>!available_envs</strong>.', array('!env' => $environment, '!available_envs' => implode(', ', $available_envs))) . ' ', 'warning');
+    drupal_set_message(t('You should edit <i>settings.php</i> or <a href="@url">edit <i>environment</i> Drupal variable</a>.', array('!env' => $environment, '@url' => $env_conf_settings_url)), 'warning');
+    drupal_set_message(t('You can also define <strong>!env</strong> as an available environment by implementing <strong>hook_env_conf_available_env()</strong>.', array('!env' => $environment)), 'warning');
   }
   else {
 
@@ -93,4 +98,23 @@ function env_conf_form_submit($form, &$form_state) {
 
   // Deploy configuration
   _deploy_environment_configuration($selected_environment);
+}
+
+/**
+ * Allow user to lauch configuration deployment,
+ * with default, or manually defined, parameter.
+ */
+function env_conf_settings_form($form, &$form_state) {
+  $environment = variable_get('environment', NULL);
+
+  // Define a value for 'environment' Drupal variable
+  $form['environment'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Environment'),
+    '#description' => t('Init <i>environment</i> variable (should be a simple name, such as local, dev, prod, etc.).'),
+    '#default_value' => $environment,
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
 }
